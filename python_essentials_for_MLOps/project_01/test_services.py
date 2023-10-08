@@ -1,3 +1,9 @@
+"""
+Movie Recommendation System Services
+
+This module contains functions to download, extract, 
+and process data related to movies in the movie recommendation system.
+"""
 import services
 
 # Test case for a movie title with special characters
