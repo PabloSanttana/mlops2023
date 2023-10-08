@@ -1,5 +1,10 @@
 # Projeto Sistema de Recomendação de Filmes em python
 
+- **Nome:** Guilherme Pablo de Santana Maciel
+- **Faculdade:** Universidade Federal do Rio Grande do Norte
+- **Disciplina:** Projeto de Sistemas Baseados em Aprendizado de Máquina
+- **Professor:** Ivanovitch Medeiros Dantas da Silva
+
 Bem-vindo ao Sistema de Recomendação de Filmes! Este projeto oferece uma solução completa para recomendar filmes com base em diferentes critérios, como títulos de filmes similares e avaliações dos usuários. Ele também inclui funcionalidades para o download de dados, limpeza de títulos de filmes e impressão de tabelas de dados.
 
 ## Visão Geral
@@ -267,5 +272,19 @@ execução do pylint no Projeto.
   
 ![main](./images/pylint_test.png)
 
+## direitos autorais 
+
+Este projeto é uma adaptação de um sistema de recomendação originalmente desenvolvido como parte de um portfólio para o [Dataquest](https://app.dataquest.io/projects/portfolio). Aprimora o [código-fonte original](https://github.com/dataquestio/project-walkthroughs/blob/master/movie_recs/movie_recommendations.ipynb), aplicando princípios de organização, código limpo e testes unitários.
+
+As melhorias na organização do código tornam-no mais legível e fácil de manter. A adesão aos princípios de código limpo resulta em um código mais eficiente e bem estruturado, seguindo as melhores práticas da indústria de desenvolvimento de software.
+
+A principal adição é a inclusão de testes unitários, que desempenham um papel vital na verificação do comportamento correto do sistema e na detecção precoce de problemas, aumentando a confiabilidade e a robustez do sistema.
+
+Em resumo, este projeto é uma evolução do sistema de recomendação original, destacando a importância da organização do código, qualidade e confiabilidade por meio de testes rigorosos, tornando-o uma ferramenta valiosa para o desenvolvimento de sistemas de recomendação de filmes e aprendizado em desenvolvimento de software.
+
+## Referências
+
+* [Repositório ivanovitchm](https://github.com/ivanovitchm/mlops)
+* [Repositório Dataquest Movie Recommendation ](https://github.com/dataquestio/project-walkthroughs/blob/master/movie_recs/movie_recommendations.ipynb)
 
 
