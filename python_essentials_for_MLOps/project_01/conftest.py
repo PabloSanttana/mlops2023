@@ -1,7 +1,7 @@
 """
 Test file to define fixtures of Movie Recomendation System
 Author: Guilherme Pablo de Santana Maciel
-Date: 2023-09-26
+Date: 2023-10-7
 """
 # import libraries
 import os
@@ -18,7 +18,7 @@ def load_input_data() -> tuple:
     Returns:
         Tuple[pd.DataFrame, pd.DataFrame]: Tuple of DataFrames
     """
-    # import the data
+    # Check if the folder ml-25 exists.
     if os.path.exists("ml-25m"):
         movies_df = pd.read_csv("ml-25m/movies.csv")
         ratings_df = pd.read_csv("ml-25m/ratings.csv")
