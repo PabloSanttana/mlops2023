@@ -221,5 +221,51 @@ Além disso, o módulo logging do Python foi amplamente utilizado para registrar
 
 O uso eficaz de logging permite que os desenvolvedores identifiquem e resolvam problemas de forma mais eficiente, garantindo a robustez e a confiabilidade do sistema de recomendação de filmes. A clareza e a organização do código, juntamente com o logging adequado, são práticas essenciais para o desenvolvimento de software de qualidade.
 
-Para 
+```python
+
+def clean_title_movie(movie_title: str):
+    """
+    Cleans a movie title by removing special characters and non-alphanumeric characters.
+
+    Args:
+        movie_title (str): The movie title to be cleaned.
+
+    Returns:
+        str: The cleaned movie title.
+    """
+    title = re.sub("[^a-zA-Z0-9 ]", "", movie_title)
+    return title
+
+```
+
+
+## pylint
+
+O uso do pylint no projeto desempenhou um papel fundamental na garantia da qualidade do código Python. Essa ferramenta realizou análises estáticas do código, identificando erros, avisos e más práticas antes mesmo da execução do programa. Além disso, o pylint verificou se o código seguia as convenções de codificação, padrões de nomenclatura e complexidade recomendados pela comunidade Python.
+
+Isso resultou em um código mais limpo, legível e de alta qualidade. A detecção precoce de problemas e a manutenção das boas práticas de programação contribuíram para um desenvolvimento eficiente e colaborativo. A integração do pylint em fluxos de trabalho de CI/CD automatizou a análise de código, garantindo a consistência e a qualidade em cada alteração.
+
+Em resumo, o uso do pylint foi essencial para a criação de um código Python confiável, fácil de manter e alinhado com as melhores práticas de programação.
+
+Comando para executar pylint:
+
+```bash
+    pylint filename
+```
+
+execução do pylint no Projeto.
+
+* ```pylint movie_recommendation_system.py```
+  
+![main](./images/pylint_main.png)
+
+* ```pylint services.py```
+  
+![main](./images/pylint_main.png)
+
+* ```pylint test_services.py```
+  
+![main](./images/pylint_main.png)
+
+
 
