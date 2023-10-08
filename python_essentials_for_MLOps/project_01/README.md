@@ -37,6 +37,9 @@ python movie_recommendation_system.py --movie-title "Toy Story"
 ```
 A saída no seu terminal deve se assemelhar ao que é mostrado na imagem abaixo.
 
+![main](./images/main.png)
+
+## codigo
 
 
 
