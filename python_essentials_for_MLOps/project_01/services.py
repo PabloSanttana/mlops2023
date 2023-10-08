@@ -7,8 +7,8 @@ import re
 import logging
 import zipfile
 import os
-import tqdm
 import argparse
+import tqdm
 import requests
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -71,11 +71,11 @@ def download_and_extract(url: str, output_dir: str) -> None:
             # Extract the ZIP file name from the URL
             zip_filename = url.split('/')[-1]
             # Download the file
-            
+
             zip_path = os.path.join(output_dir, zip_filename)
 
-            with requests.Session() as session:  
-                response = session.get(url, stream=True,timeout=10)
+            with requests.Session() as session:
+                response = session.get(url, stream=True, timeout=10)
                 total_size = int(response.headers.get('content-length', 0))
 
                 chunk_size = 128 * 1024
@@ -83,10 +83,10 @@ def download_and_extract(url: str, output_dir: str) -> None:
 
                 with open(zip_filename, 'wb') as file:
                     for data in tqdm.tqdm(response.iter_content(chunk_size=chunk_size),
-                                    total=total_chunks,
-                                    unit='KB',
-                                    desc=zip_filename,
-                                    leave=True):
+                                          total=total_chunks,
+                                          unit='KB',
+                                          desc=zip_filename,
+                                          leave=True):
                         file.write(data)
 
                 logging.info("File downloaded to %s", zip_path)
@@ -143,6 +143,9 @@ def get_similar_movie_titles(
         ValueError: If the cleaned movie title is empty.
     """
     try:
+        # clean the movie title
+        logging.info("Cleaning the movie title")
+        movies_df["clean_title"] = movies_df["title"].apply(clean_title_movie)
         # instantiate the TF-IDF vectorizer
         logging.info("Instantiating the TF-IDF vectorizer")
         tfidf_vectorizer = TfidfVectorizer(ngram_range=(1, 2))

@@ -33,14 +33,9 @@ movies_df = pd.read_csv(movies_csv_path)
 # log the shape of the data
 logging.info("The shape of the data is %s", movies_df.shape)
 
-# clean the movie title
-logging.info("Cleaning the movie title")
-movies_df["clean_title"] = movies_df["title"].apply(services.clean_title_movie)
-
 # get the most similar movies
 logging.info("Getting the most similar movies to %s", title_movie)
 results = services.get_similar_movie_titles(title_movie, movies_df)
-
 
 # print the results
 columns_to_include = ["title", "genres"]
