@@ -20,7 +20,7 @@ title_movie = services.get_title_movie()
 if title_movie == "Unknown":
     sys.exit()
 
-services.download_and_extract(URL, "ml-25m")
+services.download_and_extract(URL, base_directory)
 
 
 # import data from moveis

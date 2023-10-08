@@ -7,6 +7,7 @@ import re
 import logging
 import zipfile
 import os
+import tqdm
 import argparse
 import requests
 import pandas as pd
@@ -60,31 +61,34 @@ def download_and_extract(url: str, output_dir: str) -> None:
         None
     """
     try:
-        # Validate the URL and output directory
-        if not url.startswith('http'):
-            raise ValueError("Invalid URL.")
-        if not os.path.isdir(output_dir):
-            raise ValueError("Output directory does not exist.")
+        if not os.path.exists("ml-25m"):
+            # Validate the URL and output directory
+            if not url.startswith('http'):
+                raise ValueError("Invalid URL.")
+            if not os.path.isdir(output_dir):
+                raise ValueError("Output directory does not exist.")
 
-        # Extract the ZIP file name from the URL
-        zip_filename = url.split('/')[-1].split(".")[0]
-
-        # Full path to the ZIP file
-        zip_path = os.path.join(output_dir, zip_filename)
-
-        if os.path.exists(zip_path):
-            logging.info(
-                'File %s already exists. Skipping download.', zip_path)
-        else:
+            # Extract the ZIP file name from the URL
+            zip_filename = url.split('/')[-1]
             # Download the file
-            response = requests.get(url, timeout=10)
+            
+            zip_path = os.path.join(output_dir, zip_filename)
 
-            if response.status_code == 200:
-                # Full path to the ZIP file
-                zip_path = os.path.join(output_dir, zip_filename)
+            with requests.Session() as session:  
+                response = session.get(url, stream=True,timeout=10)
+                total_size = int(response.headers.get('content-length', 0))
 
-                with open(zip_path, 'wb') as file:
-                    file.write(response.content)
+                chunk_size = 128 * 1024
+                total_chunks = total_size // chunk_size
+
+                with open(zip_filename, 'wb') as file:
+                    for data in tqdm.tqdm(response.iter_content(chunk_size=chunk_size),
+                                    total=total_chunks,
+                                    unit='KB',
+                                    desc=zip_filename,
+                                    leave=True):
+                        file.write(data)
+
                 logging.info("File downloaded to %s", zip_path)
 
                 # Extract the ZIP file
@@ -96,9 +100,6 @@ def download_and_extract(url: str, output_dir: str) -> None:
                 # Remove the ZIP file
                 os.remove(zip_path)
                 logging.info("ZIP file deleted.")
-
-            else:
-                logging.error("Error downloading the file.")
 
     except requests.exceptions.ConnectionError:
         logging.error("Connection Error")
