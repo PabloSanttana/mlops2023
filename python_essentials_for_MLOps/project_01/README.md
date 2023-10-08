@@ -22,7 +22,7 @@ O projeto consiste em um conjunto de funções e utilitários implementados em P
 Antes de começar, certifique-se de ter os seguintes requisitos instalados:
 
 - Python 3.6 ou superior
-- Bibliotecas Python listadas em `requirements.txt`. Você pode instalá-las executando:
+- Bibliotecas Python listadas em `requirements.txt`.
 
 ## Modo de Uso
 
@@ -32,6 +32,11 @@ Para usar o Sistema de Recomendação de Filmes, siga estas etapas simples:
 
 Execute o script movie_recommendation_system.py com o comando abaixo e substitua "Toy Story" pelo título do filme de sua escolha:
 
+```
 python movie_recommendation_system.py --movie-title "Toy Story"
+```
+A saída no seu terminal deve se assemelhar ao que é mostrado na imagem abaixo.
+
+
 
 
