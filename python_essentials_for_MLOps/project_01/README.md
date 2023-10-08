@@ -261,11 +261,11 @@ execução do pylint no Projeto.
 
 * ```pylint services.py```
   
-![main](./images/pylint_main.png)
+![main](./images/pylint_services.png)
 
 * ```pylint test_services.py```
   
-![main](./images/pylint_main.png)
+![main](./images/pylint_test.png)
 
 
 
