@@ -111,4 +111,99 @@ else:
         top_recommendations_movies, columns_to_include)
 ```
 
+A função download_and_extract é responsável por baixar e extrair um arquivo ZIP de uma URL especificada. Ela começa verificando se o diretório de saída já possui os dados, evitando downloads repetidos. Em seguida, valida a URL e o diretório de saída antes de iniciar o download. Durante o download, o arquivo é dividido em partes menores para monitorar o progresso. Após o download, o arquivo ZIP é extraído para o diretório de saída e, finalmente, o arquivo ZIP original é removido. A função também lida com exceções que podem ocorrer durante o processo, como erros de conexão, tempo limite, erro HTTP ou inválidação do arquivo ZIP. Essa função é essencial para adquirir os dados necessários para o sistema de recomendação de filmes.
+
+```python 
+def download_and_extract(url: str, output_dir: str) -> None:
+    """
+    Download the data from the given URL
+    Args:
+        url (str): The URL of the data
+        output_dir (str): save output dir
+    Returns:
+        None
+    """
+    try:
+        if not os.path.exists("ml-25m"):
+            # Validate the URL and output directory
+            if not url.startswith('http'):
+                raise ValueError("Invalid URL.")
+            if not os.path.isdir(output_dir):
+                raise ValueError("Output directory does not exist.")
+
+            # Extract the ZIP file name from the URL
+            zip_filename = url.split('/')[-1]
+            # Download the file
+
+            zip_path = os.path.join(output_dir, zip_filename)
+
+            with requests.Session() as session:
+                response = session.get(url, stream=True, timeout=10)
+                total_size = int(response.headers.get('content-length', 0))
+
+                chunk_size = 128 * 1024
+                total_chunks = total_size // chunk_size
+
+                with open(zip_filename, 'wb') as file:
+                    for data in tqdm.tqdm(response.iter_content(chunk_size=chunk_size),
+                                          total=total_chunks,
+                                          unit='KB',
+                                          desc=zip_filename,
+                                          leave=True):
+                        file.write(data)
+
+                logging.info("File downloaded to %s", zip_path)
+
+                # Extract the ZIP file
+                with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+                    zip_ref.extractall(output_dir)
+                logging.info(
+                    "Contents of the file extracted to %s", output_dir)
+
+                # Remove the ZIP file
+                os.remove(zip_path)
+                logging.info("ZIP file deleted.")
+
+    except requests.exceptions.ConnectionError:
+        logging.error("Connection Error")
+    except requests.exceptions.Timeout:
+        logging.error("Timeout Error")
+    except requests.exceptions.HTTPError:
+        logging.error("HTTP Error")
+    except zipfile.BadZipFile:
+        logging.error("The downloaded file is not a valid ZIP file.")
+
+```
+
+## Testes Automatizados (pytest)
+
+Este projeto utiliza testes automatizados para garantir o funcionamento correto das funcionalidades principais. Os testes são implementados no arquivo `test_services.py`.
+
+### Fixture de Dados
+
+No arquivo `conftest.py`, você encontrará um *fixture* que carrega os conjuntos de dados na memória para que possam ser utilizados nos testes. Isso garante que os testes sejam executados com dados consistentes e conhecidos.
+
+### Importância dos Testes
+
+Os testes são essenciais para:
+
+- Verificar o comportamento correto das funcionalidades principais.
+- Garantir que os dados sejam tratados de forma adequada, evitando erros durante a execução.
+- Facilitar a manutenção futura, detectando problemas antecipadamente.
+- Adicionar confiabilidade ao aplicativo, assegurando que ele funcione conforme o esperado.
+
+Sinta-se à vontade para adicionar mais testes ao seu aplicativo; eles são uma ferramenta poderosa que economiza tempo de depuração e ajuda a manter a qualidade do código.
+
+Para executar todos os testes, basta executar o comando abaixo:
+```bash
+pytest
+```
+Para executar um arquivo de teste específico de um projeto:
+```bash
+pytest test_service.py
+```
+
+![test_services](,/images/)
+
+
 
