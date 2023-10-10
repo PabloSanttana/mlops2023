@@ -1,39 +1,31 @@
-# Projeto Prevendo Custos de Seguro
+# Airflow Data Pipeline to Download Podcasts
 
 - **Nome:** Guilherme Pablo de Santana Maciel
 - **Faculdade:** Universidade Federal do Rio Grande do Norte
 - **Disciplina:** Projeto de Sistemas Baseados em Aprendizado de Máquina
 - **Professor:** Ivanovitch Medeiros Dantas da Silva
 
-Bem-vindo ao projeto de Modelagem de Regressão Linear em Python! Este projeto utiliza técnicas de regressão linear para prever custos médicos com base em dados demográficos e características pessoais dos pacientes. Utilizamos o conjunto de dados de Custos Médicos do Kaggle e aplicamos o conhecimento adquirido no curso para construir um modelo preditivo eficaz. A previsão de custos médicos é fundamental para hospitais e seguradoras, e este projeto serve como um exemplo de como aplicar a regressão linear em problemas do mundo real.
+O projeto utiliza o Apache Airflow para automatizar a coleta de episódios de podcast, o armazenamento de informações relevantes em um banco de dados SQLite, o download de episódios de áudio e a transcrição desses episódios em texto. Essa automação é configurada para ser executada diariamente, facilitando o processo de criação e gerenciamento de um pipeline de dados para tarefas de aprendizado de máquina.
 
 Sinta-se à vontade para personalizar este resumo conforme necessário para se adequar ao seu projeto específico.
 
 ## Visão Geral
 
-O projeto de Modelagem de Regressão Linear em Python tem como objetivo aplicar conceitos e técnicas de regressão linear a um cenário do mundo real. Neste projeto, utilizaremos o conjunto de dados de Custos Médicos do Kaggle, que contém informações sobre contas individuais de seguros médicos.
+O projeto em questão utiliza a plataforma Apache Airflow, conhecida por sua capacidade de automação de fluxos de trabalho, para criar um pipeline de dados que automatiza diversas etapas do processo de gerenciamento de informações relacionadas a episódios de podcast. Abaixo, detalhamos os principais componentes e passos desse projeto:
 
-### Objetivo
+**Coleta de Dados**: A primeira etapa do projeto envolve a coleta de dados de episódios de podcast a partir de uma fonte externa, especificamente a URL do podcast desejado. Isso é realizado por meio da biblioteca requests, que permite fazer solicitações HTTP, e da biblioteca xmltodict, utilizada para analisar o feed XML resultante. Os episódios são então extraídos do feed e manipulados como dicionários Python.
 
-O principal objetivo deste projeto é desenvolver um modelo de regressão linear que seja capaz de prever os custos médicos com base em diversas variáveis, como idade, índice de massa corporal (IMC), hábitos de fumar e outras características dos pacientes. A previsão de custos médicos é importante tanto para hospitais quanto para seguradoras, permitindo uma melhor gestão financeira e planejamento de recursos.
+**Armazenamento de Dados**: Os dados referentes aos episódios são armazenados em um banco de dados SQLite, com o auxílio da biblioteca sqlite3. Caso o banco de dados SQLite não exista, o projeto o cria automaticamente, configurando uma tabela denominada "episodes" para armazenar as informações dos episódios.
 
-### Metodologia
+**Download de Áudio**: Outra funcionalidade importante do projeto é o download dos arquivos de áudio dos episódios de podcast para um diretório local. Isso é possível graças ao uso da biblioteca requests, que realiza os downloads, e da biblioteca pydub, utilizada para manipular os arquivos de áudio. É possível também definir características como a taxa de amostragem e o número de canais dos arquivos de áudio baixados.
 
-O projeto seguirá as seguintes etapas:
+**Transcrição de Áudio para Texto**: O projeto inclui uma etapa opcional que permite a transcrição dos episódios de áudio para texto. Essa funcionalidade utiliza o modelo de reconhecimento de fala Vosk. Vale destacar que essa etapa pode requerer configurações adicionais e, por padrão, não está habilitada.
 
-1. **Exploração de Dados:** Inicialmente, exploraremos o conjunto de dados para compreender suas características e distribuições.
+**Agendamento Automatizado**: O projeto é configurado para ser executado automaticamente em intervalos regulares, no caso, diariamente. Isso é possível graças ao Apache Airflow, que permite a configuração e programação de tarefas automatizadas.
 
-2. **Pré-processamento de Dados:** Realizaremos etapas de pré-processamento, como tratamento de valores ausentes, codificação de variáveis categóricas e normalização de dados.
+**Testes Unitários**: Para garantir o correto funcionamento das principais funções do projeto, são incluídos testes unitários, os quais são executados utilizando a biblioteca pytest.
 
-3. **Análise de Correlação:** Investigaremos as correlações entre as variáveis independentes e a variável alvo (custos médicos).
-
-4. **Construção do Modelo:** Utilizaremos a regressão linear para construir o modelo de previsão de custos médicos.
-
-5. **Avaliação do Modelo:** Avaliaremos o desempenho do modelo utilizando métricas como o Erro Médio Quadrático (MSE) e o Coeficiente de Determinação (R-squared).
-
-6. **Interpretação de Resultados:** Interpretaremos os coeficientes do modelo para entender como cada variável influencia os custos médicos.
-
-7. **Visualização de Resultados:** Apresentaremos os resultados por meio de gráficos e visualizações para tornar as conclusões mais compreensíveis.
+Em resumo, este projeto demonstra como aproveitar o potencial do Apache Airflow para automatizar o processo de coleta, armazenamento e processamento de dados relacionados a episódios de podcast. Ele oferece um pipeline de dados eficiente que pode ser configurado e agendado para execução automática, tornando-o uma ferramenta valiosa para atividades de aprendizado de máquina e análise de dados.
 
 
 
@@ -42,148 +34,158 @@ O projeto seguirá as seguintes etapas:
 Antes de começar, certifique-se de ter os seguintes requisitos instalados:
 
 - Python 3.6 ou superior
+
+### Configuração do Ambiente Virtual
+Para melhor isolamento do ambiente e gerenciamento de dependências, é altamente recomendável criar e ativar um ambiente virtual Python. Siga os passos abaixo:
+
+Crie um ambiente virtual usando Python 3.10 (ou a versão desejada) com o seguinte comando:
+
+```bash
+python3 -m venv airflow
+```
+
+Ative o ambiente virtual com o seguinte comando:
+
+```bash
+source ./airflow/bin/activate
+```
+### Instalação do Apache Airflow
+Para instalar o Apache Airflow, você pode usar o seguinte comando, que também inclui a especificação de restrições de versão:
+
+```bash
+CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-2.3.1/constraints-3.8.txt"
+pip install "apache-airflow==2.3.1" --constraint "${CONSTRAINT_URL}"
+```
 - Bibliotecas Python listadas em `requirements.txt`.
+
+```bash
+pip install -r requirements.txt
+```
+
+Para executar o projeto com o Apache Airflow em modo standalone
+
+```bash
+airflow standalone
+```
+Isso executará o Apache Airflow no endereço localhost:8080.
+
+O próximo passo é configurar o caminho para suas DAGs. Para fazer isso, você deve editar o arquivo de configuração em ~/airflow/config.cfg. Localize a seção que especifica o caminho para as DAGs e atualize-o para o diretório onde suas DAGs estão localizadas. Por exemplo:
+
+```python
+dags_folder = /home/pablo/mlops2023/python_essentials_for_MLOps/project_02/dags
+```
 
 ## Modo de Uso
 
-Para usar o Sistema, siga estas etapas simples:
-
-1. Clone este repositório para o seu ambiente local ou use o codespace do github:
-
-Execute o script predicting_insurance_costs.py
-
-```
-python predicting_insurance_costs.py
-```
-A saída no seu terminal deve se assemelhar ao que é mostrado na imagem abaixo.
+Para usar o Sistema, siga estas etapas simples entra no localhost:8080 e acessa a DAG podcast_summary
 
 ![main](./images/main.png)
 
+Para configurar e usar uma DAG no Apache Airflow e acessar o log resumo através da interface gráfica, siga estas etapas:
+
+Certifique-se de ter o Apache Airflow configurado e em execução.
+
+Acesse a interface da web do Apache Airflow em um navegador.
+
+Vá para a guia "DAGs" para visualizar todas as suas DAGs disponíveis.
+
+Escolha a DAG da qual deseja acessar o log resumo.
+
+Na visualização da DAG, clique na tarefa específica para a qual deseja visualizar o log resumo.
+
+Na página de detalhes da tarefa, vá para a guia "Logs".
+
+O log resumo da tarefa será exibido na janela ou painel, permitindo que você revise os registros de execução.
+
+Copie o conteúdo do log resumo conforme necessário e inclua-o em seu arquivo README para documentação.
+
+Usar a interface gráfica do Apache Airflow facilita o acesso aos logs e monitoramento das DAGs e tarefas, tornando-o útil para depuração e análise de execuções anteriores.
+
+exemplo log da task download_episodes
+![log](./images/log_min.png)
+
+
 ## codigo
     
-O arquivo predicting_insurance_costs.py, o código principal coordena a leitura do csv, processamento e apresentação das infomaçōes
+O arquivo podcast.py contém a implementação de um pipeline de dados automatizado para coletar, armazenar e processar informações relacionadas a episódios de podcast
+
+A DAG podcast_summary é responsável por orquestrar e automatizar todo o processo definido no código do arquivo podcast.py. Ela coordena a execução das tarefas e etapas do pipeline de processamento de dados de podcast. Aqui está uma visão geral das principais responsabilidades da DAG podcast_summary no código:
 
 ```python
-try:
-    FILE_PATH = "./dataset/insurance.csv"
-    insurance_df = services.read_dataset(FILE_PATH)
-    services.print_dataframe_table(insurance_df)
-
-    insurance_df = services.transform_data(insurance_df)
-    services.print_dataframe_table(insurance_df)
-
-    X_train, X_test, y_train, y_test = services.split_data(insurance_df)
-    insurance_model = services.train_model(X_train, y_train)
-    result_in_original_scale = services.evaluate_model(insurance_model,
-                                                       X_train, y_train,
-                                                       X_test, y_test)
-
-    logging.info("Final score on the test set: %s", str(result_in_original_scale))
-except FileNotFoundError as file_not_found:
-    logging.error("File not found: %s", str(file_not_found))
-except KeyError as key_error:
-    logging.error("Key error: %s", str(key_error))
-```
-
-# funçōes importantes
-
-## Avaliação do Modelo
-
-A função `evaluate_model` tem como objetivo avaliar o desempenho de um modelo de aprendizado de máquina nos conjuntos de treinamento e teste. Esta avaliação é essencial para entender quão bem o modelo se ajusta aos dados e como ele realiza previsões.
-
-### Parâmetros
-
-- `insurance_model`: O modelo de regressão linear previamente treinado.
-- `x_train`: A matriz de características do conjunto de treinamento.
-- `y_train`: A variável alvo do conjunto de treinamento.
-- `x_test`: A matriz de características do conjunto de teste.
-- `y_test`: A variável alvo do conjunto de teste.
-
-### Avaliação de Desempenho
-
-A função realiza as seguintes etapas de avaliação:
-
-1. **Avaliação no Conjunto de Treinamento:** Primeiro, o modelo é usado para prever os valores alvo no conjunto de treinamento. Em seguida, são calculados o Erro Quadrático Médio (MSE) nos termos logarítmicos e o coeficiente de determinação (R-squared) para avaliar o ajuste do modelo aos dados de treinamento.
-
-2. **Coeficientes Não Interceptados:** Também são obtidos os coeficientes não interceptados do modelo, que representam o impacto das características nos resultados.
-
-3. **Avaliação no Conjunto de Teste:** O modelo é aplicado ao conjunto de teste, e o MSE nos termos logarítmicos e na escala original é calculado para avaliar o desempenho nas previsões de teste.
-
-### Tratamento de Erros
-
-A função inclui um mecanismo de tratamento de exceções para lidar com possíveis erros durante a avaliação do modelo. Se ocorrer algum erro, uma mensagem de erro será registrada e a exceção será relançada para tratamento posterior.
-
-Em resumo, a função `evaluate_model` é fundamental para entender o quão eficaz é o modelo treinado na previsão dos custos de seguro médico. Ela fornece métricas valiosas que ajudam a avaliar a qualidade do modelo e seu desempenho nos dados de treinamento e teste.
-
-```python
-def evaluate_model(insurance_model, x_train, y_train, x_test, y_test):
+def podcast_summary():
     """
-    Evaluate the performance of a machine learning model on training and test sets.
+    This function defines the workflow for the podcast processing DAG.
 
-    Parameters:
-    - model: The trained machine learning model.
-    - X_train: The feature matrix of the training set.
-    - y_train: The target variable of the training set.
-    - X_test: The feature matrix of the test set.
-    - y_test: The target variable of the test set.
+    It creates a database, fetches podcast episodes, loads them into the database,
+    and downloads audio files. You can also uncomment the 'speech_to_text' call
+    to enable speech-to-text transcription (may not work).
 
     Returns:
-    - mse_test_original_scale: Mean Squared Error (MSE) on the test set in the original scale.
+        None
     """
-    try:
-        logging.info("Evaluating model performance on the training set")
-        y_pred_train = insurance_model.predict(x_train)
-        mse_train = mean_squared_error(y_train, y_pred_train)
-        logging.info("MSE on the training set (log-terms): %s", str(mse_train))
-        mse_train_original_scale = np.exp(mse_train)
-        logging.info("MSE on the training set (original scale): %s",str(mse_train_original_scale))
+    create_database = create_database_episodes()
 
-        logging.info("Calculating the coefficient of determination (R-squared) on the training set")
-        r2_train = r2_score(y_train, y_pred_train)
-        logging.info("R-squared on the training set: %s",str(r2_train))
-        non_intercept_coefficients = insurance_model.coef_
+    podcast_episodes = get_request_episodes()
+    create_database.set_downstream(podcast_episodes)
 
-        logging.info("Getting the non-intercept coefficients: %s", non_intercept_coefficients)
+    load_databese_episodes(podcast_episodes)
 
-        logging.info("Evaluating model performance on the test set")
-        y_pred_test = insurance_model.predict(x_test)
-        mse_test = mean_squared_error(y_test, y_pred_test)
-        logging.info("MSE on the test set (log-terms): %s", str(mse_test))
-        mse_test_original_scale = np.exp(mse_test)
-        logging.info("MSE on the test set (original scale): %s", str(mse_test_original_scale))
+    download_episodes(podcast_episodes)
 
-        return mse_test_original_scale
-    except Exception as exception:
-        logging.error("Error evaluating the model: %s", str(exception))
-        raise
+    #Uncomment this to try speech to text (may not work)
+    #speech_to_text(audio_files, new_episodes)
+
 ```
 
-## Testes Automatizados (pytest)
 
-Este projeto utiliza testes automatizados para garantir o funcionamento correto das funcionalidades principais. Os testes são implementados no arquivo `test_services.py`.
+**A TASK download_episodes** é responsável por baixar os episódios de podcast como arquivos de áudio. Ela itera sobre uma lista de episódios, verifica se os arquivos de áudio correspondentes já existem e, se não existirem, realiza o download dos arquivos a partir das URLs fornecidas nos episódios. A função também registra informações sobre os arquivos baixados com sucesso, incluindo os links dos episódios e os nomes dos arquivos baixados. Isso permite que o projeto automatize o processo de download de episódios de podcast para processamento posterior.
 
 
-### Importância dos Testes
+```python
+@task()
+def download_episodes(episodes):
+    """
+    Download podcast episodes as audio files.
 
-Os testes são essenciais para:
+    This function takes a list of podcast episodes and downloads their audio files
+    if they do not already exist in the specified folder.
 
-- Verificar o comportamento correto das funcionalidades principais.
-- Garantir que os dados sejam tratados de forma adequada, evitando erros durante a execução.
-- Facilitar a manutenção futura, detectando problemas antecipadamente.
-- Adicionar confiabilidade ao aplicativo, assegurando que ele funcione conforme o esperado.
+    Args:
+        episodes (list): A list of podcast episodes as dictionaries.
 
-Sinta-se à vontade para adicionar mais testes ao seu aplicativo; eles são uma ferramenta poderosa que economiza tempo de depuração e ajuda a manter a qualidade do código.
-
-Para executar todos os testes, basta executar o comando abaixo:
-```bash
-pytest
+    Returns:
+        list: A list of downloaded audio files (dictionary with link and filename).
+    """
+    audio_files = []
+    for episode in episodes:
+        name_end = episode["link"].split('/')[-1]
+        filename = f"{name_end}.mp3"
+        audio_path = os.path.join(EPISODE_FOLDER, filename)
+        try:
+            if not os.path.exists(audio_path):
+                logging.info("Downloading %s", filename)
+                audio = requests.get(episode["enclosure"]["@url"], timeout=15)
+                audio.raise_for_status()  # Raise an exception if the request is not successful
+                with open(audio_path, "wb+") as audio_file:
+                    audio_file.write(audio.content)
+                audio_files.append({
+                    "link": episode["link"],
+                    "filename": filename
+                })
+            else:
+                logging.info("Skipped downloading %s as it already exists.", filename)
+        except requests.exceptions.RequestException as request_error:
+            logging.error("HTTP request error for episode %s: %s",
+                          episode['link'],
+                          str(request_error))
+            continue
+        except IOError as io_error:
+            logging.error("IO error while downloading episode %s: %s",
+                          episode['link'],
+                          str(io_error))
+            continue
+    return audio_files
 ```
-Para executar um arquivo de teste específico de um projeto:
-```bash
-pytest test_service.py
-```
-
-![test_services](./images/pytest.png)
 
 ## Princípios de código limpo
 
@@ -202,32 +204,35 @@ Além disso, o módulo logging do Python foi amplamente utilizado para registrar
 O uso eficaz de logging permite que os desenvolvedores identifiquem e resolvam problemas de forma mais eficiente, garantindo a robustez e a confiabilidade do sistema de recomendação de filmes. A clareza e a organização do código, juntamente com o logging adequado, são práticas essenciais para o desenvolvimento de software de qualidade.
 
 ```python
+def get_request_episodes() -> list:
+    """
+    Fetch podcast episodes from the specified URL.
+
+    This function sends an HTTP GET request to the PODCAST_URL and parses the
+    response to extract podcast episodes. It handles exceptions related to
+    HTTP requests and XML parsing.
+
+    Returns:
+        list: A list of podcast episodes as dictionaries.
+    """
     try:
-        logging.info("Evaluating model performance on the training set")
-        y_pred_train = insurance_model.predict(x_train)
-        mse_train = mean_squared_error(y_train, y_pred_train)
-        logging.info("MSE on the training set (log-terms): %s", str(mse_train))
-        mse_train_original_scale = np.exp(mse_train)
-        logging.info("MSE on the training set (original scale): %s",str(mse_train_original_scale))
+        logging.info("Fetching episodes.")
+        data = requests.get(PODCAST_URL,timeout=15)
+        # Raises an exception if the HTTP request is not successful.
+        data.raise_for_status()
+        feed = xmltodict.parse(data.text)
+        episodes = feed["rss"]["channel"]["item"]
+        logging.info("Found %s episodes.", len(episodes))
+        return episodes
+    except requests.exceptions.RequestException as requests_error:
+        # Catches exceptions related to HTTP requests, such as failed connections.
+        logging.error("HTTP request error: %s", str(requests_error))
+        return []  # Retorna uma lista vazia em caso de erro
 
-        logging.info("Calculating the coefficient of determination (R-squared) on the training set")
-        r2_train = r2_score(y_train, y_pred_train)
-        logging.info("R-squared on the training set: %s",str(r2_train))
-        non_intercept_coefficients = insurance_model.coef_
-
-        logging.info("Getting the non-intercept coefficients: %s", non_intercept_coefficients)
-
-        logging.info("Evaluating model performance on the test set")
-        y_pred_test = insurance_model.predict(x_test)
-        mse_test = mean_squared_error(y_test, y_pred_test)
-        logging.info("MSE on the test set (log-terms): %s", str(mse_test))
-        mse_test_original_scale = np.exp(mse_test)
-        logging.info("MSE on the test set (original scale): %s", str(mse_test_original_scale))
-
-        return mse_test_original_scale
-    except Exception as exception:
-        logging.error("Error evaluating the model: %s", str(exception))
-        raise
+    except (KeyError, ValueError, TypeError) as erro_all:
+        # Catches exceptions related to XML parsing or invalid data structure.
+        logging.error("XML parsing error or invalid data structure: %s", str(erro_all))
+        return []  # Retorna uma lista vazia em caso de erro.
 
 ```
 
@@ -248,32 +253,23 @@ Comando para executar pylint:
 
 execução do pylint no Projeto.
 
-* ```pylint predicting_insurance_costs.py```
+* ```pylint podcast.py```
   
 ![main](./images/pylint_main.png)
 
-* ```pylint services.py```
-  
-![service](./images/pylint_service.png)
-
-* ```pylint test_services.py```
-  
-![main](./images/pylint_test.png)
 
 ## direitos autorais 
 
-Este projeto é uma adaptação do original desenvolvido como a tividade do curso Machine Learning in Python da secao Linear Regression Modeling in Python[Dataquest](https://app.dataquest.io/learning-path/machine-learning-in-python-skill). Aprimora o [código-fonte original](https://github.com/dataquestio/solutions/blob/master/Mission730Solutions.ipynb), aplicando princípios de organização, código limpo e testes unitários.
+Este projeto é uma adaptação do original desenvolvido como proposta para portifolio do [Dataquest](https://app.dataquest.io/c/93/m/999911/build-an-airflow-data-pipeline-to-download-podcasts/1/project-overview-and-setting-up). Aprimora o [código-fonte original](https://github.com/dataquestio/project-walkthroughs/blob/master/podcast_summary/podcast_summary.py), aplicando princípios de organização, código limpo e testes unitários.
 
 As melhorias na organização do código tornam-no mais legível e fácil de manter. A adesão aos princípios de código limpo resulta em um código mais eficiente e bem estruturado, seguindo as melhores práticas da indústria de desenvolvimento de software.
 
-A principal adição é a inclusão de testes unitários, que desempenham um papel vital na verificação do comportamento correto do sistema e na detecção precoce de problemas, aumentando a confiabilidade e a robustez do sistema.
-
-Em resumo, este projeto é uma evolução do Predicting Insurance Costs original, destacando a importância da organização do código, qualidade e confiabilidade por meio de testes rigorosos, tornando-o uma ferramenta valiosa para o aprendizado em desenvolvimento de software.
+Em resumo, este projeto é uma evolução do Airflow Data Pipeline to Download Podcasts original, destacando a importância da organização do código, qualidade e confiabilidade, tornando-o uma ferramenta valiosa para o aprendizado em desenvolvimento de software.
 
 ## Referências
 
 * [Repositório ivanovitchm](https://github.com/ivanovitchm/mlops)
-* [Repositório Dataquest Predicting Insurance Costs ](https://github.com/dataquestio/solutions/blob/master/Mission730Solutions.ipynb)
+* [Repositório Dataquest Airflow Data Pipeline to Download Podcasts ](https://github.com/dataquestio/project-walkthroughs/blob/master/podcast_summary/podcast_summary.py)
 
 
 
