@@ -254,4 +254,4 @@ def podcast_summary():
     #Uncomment this to try speech to text (may not work)
     #speech_to_text(audio_files, new_episodes)
 
-podcast_summary()
+summary = podcast_summary()
