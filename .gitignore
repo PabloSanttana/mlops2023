@@ -156,6 +156,10 @@ cython_debug/
 
 
 ml-25m/
+airflow/
+episodes/
+sqlite-snapshot-202309111527/
+episodes.db
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
