@@ -120,7 +120,8 @@ def load_databese_episodes(episodes) -> list:
                                         "filename"])
         return new_episodes
     except Exception as exception:
-        logging.error("An error occurred: %s", str(exception)) 
+        logging.error("An error occurred: %s", str(exception))
+        return []
 
 
 
@@ -222,7 +223,7 @@ def speech_to_text() -> None:
         # Handle file not found error
         logging.error("File not found: %s", str(file_error))
     except Exception as exception:
-        logging.error("An error occurred: %s", str(exception)) 
+        logging.error("An error occurred: %s", str(exception))
 
 @dag(
     dag_id='podcast_summary',
@@ -231,7 +232,16 @@ def speech_to_text() -> None:
     catchup=False,
 )
 def podcast_summary():
-    
+    """
+    This function defines the workflow for the podcast processing DAG.
+
+    It creates a database, fetches podcast episodes, loads them into the database,
+    and downloads audio files. You can also uncomment the 'speech_to_text' call
+    to enable speech-to-text transcription (may not work).
+
+    Returns:
+        None
+    """
     create_database = create_database_episodes()
 
     podcast_episodes = get_request_episodes()
@@ -244,4 +254,4 @@ def podcast_summary():
     #Uncomment this to try speech to text (may not work)
     #speech_to_text(audio_files, new_episodes)
 
-summary = podcast_summary()
+podcast_summary()
