@@ -13,7 +13,7 @@ Este repositório abriga os projetos desenvolvidos durante o curso MLOps ofereci
 
 ## 📂 Projects
 
-- [Python Essentials for MLOps](./Python_Essentials_for_MLOps/)
+- [Python Essentials for MLOps](./python_essentials_for_MLOps/)
 
 ## ⚖️ License
 
