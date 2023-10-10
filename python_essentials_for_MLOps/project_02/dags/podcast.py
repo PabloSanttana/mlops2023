@@ -5,7 +5,6 @@ Date: 2023-10-09
 """
 import os
 import json
-import sqlite3
 import requests
 import xmltodict
 import logging
@@ -22,13 +21,7 @@ PODCAST_URL = "https://www.marketplace.org/feed/podcast/marketplace/"
 EPISODE_FOLDER = "/home/pablo/mlops2023/python_essentials_for_MLOps/project_02/episodes"
 FRAME_RATE = 16000
 
-
-# set the logging level
-logging.basicConfig(level=logging.INFO,
-                    format='%(asctime)s %(levelname)s %(message)s',
-                    datefmt='%m/%d/%Y %I:%M:%S %p')
-
-
+@task()
 def create_database_episodes() ->  SqliteOperator:
     """
     Create a SQLite database table for podcast episodes.
@@ -43,7 +36,7 @@ def create_database_episodes() ->  SqliteOperator:
     Returns:
         SqliteOperator: An instance of SqliteOperator.
     """
-    return SqliteOperator(
+    create_database = SqliteOperator(
         task_id='create_table_sqlite',
         sql=r"""
         CREATE TABLE IF NOT EXISTS episodes (
@@ -57,9 +50,10 @@ def create_database_episodes() ->  SqliteOperator:
         """,
         sqlite_conn_id="podcasts"
     )
+    return create_database
 
 @task()
-def get_episodes() -> list:
+def get_request_episodes() -> list:
     """
     Fetch podcast episodes from the specified URL.
 
@@ -89,8 +83,9 @@ def get_episodes() -> list:
         logging.error("XML parsing error or invalid data structure: %s", str(erro_all))
         return []  # Retorna uma lista vazia em caso de erro.
 
+
 @task()
-def load_episodes(episodes) -> list:
+def load_databese_episodes(episodes) -> list:
     """
     Load new podcast episodes into the SQLite database.
 
@@ -124,10 +119,11 @@ def load_episodes(episodes) -> list:
                                         "description",
                                         "filename"])
         return new_episodes
-    except sqlite3.Error as sqlite_error:
-        # Lidar com erros específicos relacionados ao SQLite
-        logging.error("An error occurred in load_episodes: %s", str(sqlite_error))
-        return []
+    except Exception as exception:
+        logging.error("An error occurred: %s", str(exception)) 
+
+
+
 
 @task()
 def download_episodes(episodes):
@@ -172,7 +168,6 @@ def download_episodes(episodes):
                           str(io_error))
             continue
     return audio_files
-
 
 def transcribe_audio_segment(audio_segment, recognizer):
     """
@@ -226,10 +221,8 @@ def speech_to_text() -> None:
     except FileNotFoundError as file_error:
         # Handle file not found error
         logging.error("File not found: %s", str(file_error))
-    except sqlite3.Error as sqlite_error:
-        # Handle SQLite database error
-        logging.error("SQLite error: %s", str(sqlite_error))
-
+    except Exception as exception:
+        logging.error("An error occurred: %s", str(exception)) 
 
 @dag(
     dag_id='podcast_summary',
@@ -238,28 +231,17 @@ def speech_to_text() -> None:
     catchup=False,
 )
 def podcast_summary():
-    """
-    This function defines the workflow for the podcast processing DAG.
+    
+    create_database = create_database_episodes()
 
-    It creates a database, fetches podcast episodes, loads them into the database,
-    and downloads audio files. You can also uncomment the 'speech_to_text' call
-    to enable speech-to-text transcription (may not work).
+    podcast_episodes = get_request_episodes()
+    create_database.set_downstream(podcast_episodes)
 
-    Returns:
-        None
-    """
-
-    # create the database
-    database = create_database_episodes()
-
-    podcast_episodes = get_episodes()
-
-    database.set_downstream(podcast_episodes)
-
-    load_episodes(podcast_episodes)
+    load_databese_episodes(podcast_episodes)
 
     download_episodes(podcast_episodes)
+
     #Uncomment this to try speech to text (may not work)
     #speech_to_text(audio_files, new_episodes)
 
-podcast_summary()
+summary = podcast_summary()
