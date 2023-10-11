@@ -1,5 +1,7 @@
 # Projeto Sistema de Recomendação de Filmes em python
 
+![main](./images/sistem.png)
+
 - **Nome:** Guilherme Pablo de Santana Maciel
 - **Faculdade:** Universidade Federal do Rio Grande do Norte
 - **Disciplina:** Projeto de Sistemas Baseados em Aprendizado de Máquina
