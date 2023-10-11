@@ -1,5 +1,7 @@
 # Airflow Data Pipeline to Download Podcasts
 
+![main](./images/airflow.jpg)
+
 - **Nome:** Guilherme Pablo de Santana Maciel
 - **Faculdade:** Universidade Federal do Rio Grande do Norte
 - **Disciplina:** Projeto de Sistemas Baseados em Aprendizado de Máquina
