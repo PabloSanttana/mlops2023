@@ -1,6 +1,7 @@
 # Projeto Prevendo Custos de Seguro
 
-![one](./images/one.png)
+
+<img  src="./images/one.png" width="600">
 
 - **Nome:** Guilherme Pablo de Santana Maciel
 - **Faculdade:** Universidade Federal do Rio Grande do Norte
