@@ -1,5 +1,7 @@
 # Projeto Prevendo Custos de Seguro
 
+![one](./images/one.png)
+
 - **Nome:** Guilherme Pablo de Santana Maciel
 - **Faculdade:** Universidade Federal do Rio Grande do Norte
 - **Disciplina:** Projeto de Sistemas Baseados em Aprendizado de Máquina
