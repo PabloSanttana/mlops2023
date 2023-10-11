@@ -1,6 +1,6 @@
 # Python Essentials for MLOps
 
-
+![MLOps.jpg](./images/MLOps.jpg)
 
 - Tecnologias utilizadas: Python, PyLint, ChatGPT
 - Video Youtube: https://www.youtube.com/watch?v=9stU74M3kd8
