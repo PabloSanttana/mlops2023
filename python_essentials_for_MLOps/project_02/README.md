@@ -1,6 +1,8 @@
 # Airflow Data Pipeline to Download Podcasts
 
-![main](./images/airflow.jpg)
+
+<img src="./images/airflow.jpg" width="600">
+
 
 - **Nome:** Guilherme Pablo de Santana Maciel
 - **Faculdade:** Universidade Federal do Rio Grande do Norte
