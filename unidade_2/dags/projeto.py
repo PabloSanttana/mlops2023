@@ -46,7 +46,7 @@ WANDB_API_KEY = os.getenv("WANDB_API_KEY")
 # ------ DEFINE TASKS --------------------------------------------------------------------------------------
 
 def login_wandb_run():
-    wandb.login("548b0d8a0c79d031f020a87b46b8434bb8e215bc")
+    wandb.login(WANDB_API_KEY)
 
 
 
