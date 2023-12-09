@@ -154,7 +154,7 @@ Para a implementação do projeto <i>Classifying Disaster-Related Tweets as Real
 ![](./imgs/airflow.jpeg)
 ![](./imgs/graph.jpeg)
 # Vídeo de apresentação
-Apresentação do projeto no [link]()
+Apresentação do projeto no [link](https://drive.google.com/file/d/1IjTJCU07UgZqCoGPEG4R0ythw2xyqCCX/view?usp=drive_link)
 
 # Grupo
 
