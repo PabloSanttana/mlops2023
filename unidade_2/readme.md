@@ -5,7 +5,6 @@
 </p>
 
 
-
 Este repositório contém o projeto referente à segunda unidade da disciplina de Projeto de Sistemas Baseados em Aprendizado de Máquina - DCA0305 do curso de Engenharia de Computação da Universidade Federal do Rio Grande do Norte.
 
 Este projeto consiste em realizar a criação de DAGs e aplicação de boas práticas de programação em um projeto guiado da plataforma Dataquest.io chamado Classifying Disaster-Related Tweets as Real or Fake, esse projeto guiado verifica se os tweets possuem relacionados à desastres naturais se são verdadeiros ou não.
@@ -26,6 +25,9 @@ Os dados são provenientes da competição do Kaggle, incluindo os seguintes arq
 - location: Local de onde o tweet foi enviado (opcional).
 - keyword: Palavra-chave associada ao tweet.
 - target: Somente em train.csv, indica se um tweet é sobre um desastre real (1) ou não (0).
+<p align="center">
+  <img src="./imgs/disp.jpeg"/>
+</p>
 
 O objetivo é prever, para cada tweet no conjunto de testes, se está relacionado a um desastre real (1) ou não (0).
 
@@ -153,6 +155,7 @@ Para a implementação do projeto <i>Classifying Disaster-Related Tweets as Real
 ![](./imgs/graph.jpeg)
 # Vídeo de apresentação
 Apresentação do projeto no [link]()
+
 # Grupo
 
 - Guilherme Pablo Santana
@@ -162,3 +165,6 @@ Apresentação do projeto no [link]()
 # Referências
 
 - Dataquest
+- Weights & Biases - wandb
+- Dr. Ivanovitch Medeiros Dantas da Silva <a href="https://github.com/ivanovitchm">![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)</a>
+
