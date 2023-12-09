@@ -145,7 +145,7 @@ Para a implementação do projeto <i>Classifying Disaster-Related Tweets as Real
    - Execute os testes automatizados com pytest para garantir a integridade dos dados.
 
 4. *Treinamento e Avaliação do Modelo:*
-   - Execute o script principal (projeto.py) para iniciar o processo de treinamento e avaliação do modelo.
+   - Execute o script principal (mlops_verifying_tweets.py) para iniciar o processo de treinamento e avaliação do modelo.
 
 5. *Visualização e Análise de Resultados:*
    - Acesse o painel do wandb para visualizar e analisar os resultados do treinamento e dos testes.
