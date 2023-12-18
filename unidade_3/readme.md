@@ -173,6 +173,12 @@ python -m venv venv
    zenml up --blocking
 ```
 
+### 7. Usar o Gradio para testar o modelo
+
+```bash
+  python my_gradio.py
+```
+
 
 # Grupo
 - Guilherme Pablo Santana
