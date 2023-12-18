@@ -113,9 +113,9 @@ Essa pipeline integra várias etapas críticas para o processamento e análise d
 
 ## Resultodo do modelo Sentiment
 
- ![](./images/sentiment_suport.png) 
-
- ![](./images/sentiment_precision.png)
+| suporte | precision |
+|----------|----------|
+|  <img src="./images/sentiment_suport.png" width="500" height="500" />  |  <img src="./images/sentiment_precision.png" width="500" height="500" /> |  
 
 
 ![](./images/sentiment_acurracy.png)
