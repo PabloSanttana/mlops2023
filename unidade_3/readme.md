@@ -91,12 +91,36 @@ Implementação: Uso do módulo logging do Python para registrar informações n
 Essa pipeline integra várias etapas críticas para o processamento e análise de texto, desde a carga inicial de dados até a aplicação prática dos modelos em uma interface interativa. A escolha das bibliotecas e ferramentas (como pandas, sklearn, nltk, gradio, e ZenML) reflete um foco na eficiência, escalabilidade e acessibilidade para usuários finais.
 
 
-
-
-
 # Resultados obtidos
-![](./imgs/airflow.jpeg)
-![](./imgs/graph.jpeg)
+
+
+## Image da estrutura do pipeline
+![](./images/pipeline.png)
+
+
+## Tabela do pipeline executados
+![](./images/tabela-my-pipeline.png)
+
+## Resultodo do modelo Language
+
+ ![](./images/language_suport.png) 
+
+ ![](./images/language_precision.png)
+
+
+![](./images/language_acurracy.png)
+
+
+## Resultodo do modelo Sentiment
+
+ ![](./images/sentiment_suport.png) 
+
+ ![](./images/sentiment_precision.png)
+
+
+![](./images/sentiment_acurracy.png)
+
+
 
 
 
