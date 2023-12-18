@@ -1,7 +1,7 @@
 # MLOps
 
 <p align="center">
-  <img src="./imgs/front2.jpg" width="1024" height="680" />
+  <img src="./images/baner.jpeg" width="1024" height="680" />
 </p>
 
 
