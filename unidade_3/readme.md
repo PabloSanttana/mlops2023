@@ -5,156 +5,100 @@
 </p>
 
 
-Este repositório contém o projeto referente à segunda unidade da disciplina de Projeto de Sistemas Baseados em Aprendizado de Máquina - DCA0305 do curso de Engenharia de Computação da Universidade Federal do Rio Grande do Norte.
+Este repositório contém o projeto referente à terceira unidade da disciplina de Projeto de Sistemas Baseados em Aprendizado de Máquina - DCA0305 do curso de Engenharia de Computação da Universidade Federal do Rio Grande do Norte.
 
-Este projeto consiste em realizar a criação de DAGs e aplicação de boas práticas de programação em um projeto guiado da plataforma Dataquest.io chamado Classifying Disaster-Related Tweets as Real or Fake, esse projeto guiado verifica se os tweets possuem relacionados à desastres naturais se são verdadeiros ou não.
+Este projeto consiste em realizar a criação de um pipeline e aplicação de boas práticas de programação em um projeto de sistema avançado de processamento de linguagem natural (NLP) e machine learning.
 
 # Projeto
 
-O projeto Classifying Disaster-Related Tweets as Real or Fake que constrói um modelo de classificação de texto de aprendizado profundo que preveja quais Tweets são sobre desastres reais e quais não são. O conjunto de dados vem do [Kaggle](https://www.kaggle.com/competitions/nlp-getting-started/overview).
+O projeto principal é um sistema avançado de processamento de linguagem natural (NLP) e machine learning, focado na análise e classificação de textos. Seu objetivo é identificar características específicas dos textos, como o idioma e o sentimento expresso, utilizando para isso um conjunto de dados contendo textos, seus idiomas correspondentes e rótulos de sentimentos.
 
-## Descrição do Conjunto de Dados
-Os dados são provenientes da competição do Kaggle, incluindo os seguintes arquivos:
-- train.csv: Conjunto de treinamento com exemplos rotulados.
-- test.csv: Conjunto de testes para avaliação do modelo.
-- sample_submission.csv: Exemplo de arquivo de envio no formato correto.
+O tema central do projeto é a análise de texto usando NLP e machine learning. Ele aborda dois aspectos principais: a identificação do idioma do texto e a classificação do sentimento expresso. Esse sistema tem uma ampla gama de aplicações práticas, como monitoramento de mídia social, análise de feedback de clientes, moderação de conteúdo, e muitas outras situações onde a compreensão automática de textos é valiosa.
 
-### Informações Contidas nos Dados:
-- id: Identificador único para cada tweet.
-- text: Texto do tweet.
-- location: Local de onde o tweet foi enviado (opcional).
-- keyword: Palavra-chave associada ao tweet.
-- target: Somente em train.csv, indica se um tweet é sobre um desastre real (1) ou não (0).
-<p align="center">
-  <img src="./imgs/disp.jpeg"/>
-</p>
 
-O objetivo é prever, para cada tweet no conjunto de testes, se está relacionado a um desastre real (1) ou não (0).
+## Funcionalidades e Componentes do Projeto:
 
-## Pré-processamento de Dados
+Análise de Texto: O projeto utiliza um conjunto de dados (dataset.csv) que inclui textos em diferentes idiomas, cada um com um rótulo de sentimento associado, como 'positivo', 'negativo' ou 'litigioso'. Este conjunto de dados é a base para todas as análises e modelagem do projeto.
 
-O pré-processamento dos dados é uma etapa crucial para preparar os tweets para a modelagem. As seguintes técnicas são aplicadas:
+Processamento de Dados: Antes de qualquer análise, os dados são carregados e passam por um processo de limpeza e preparação, que pode incluir a remoção de caracteres especiais, normalização de texto e outras transformações necessárias para a análise de NLP.
 
-1. *Limpeza de Dados:*
-   - Remoção de colunas desnecessárias como id, keyword e location.
-   - Conversão do texto dos tweets para letras minúsculas.
+Machine Learning: O código do projeto revela a utilização de algoritmos de machine learning, como LinearSVC e MultinomialNB, para treinar modelos capazes de classificar os textos em termos de idioma e sentimento. Isso implica na construção de pipelines de machine learning, que incluem a vetorização do texto (transformação de texto em um formato numérico compreensível por modelos de machine learning) e a aplicação de técnicas de classificação.
 
-2. *Tratamento de Texto:*
-   - Remoção de caracteres não alfabéticos e substituição por espaços.
-   - Tokenização: Transformação do texto em uma lista de palavras ou tokens.
+Interface Interativa: Com a utilização da biblioteca Gradio, o projeto oferece uma interface interativa onde os usuários podem inserir textos e receber previsões em tempo real sobre o idioma e o sentimento expresso. Essa funcionalidade torna o projeto acessível para usuários sem conhecimento técnico em programação ou machine learning.
 
-3. *Remoção de Stopwords:*
-   - Exclusão de palavras comuns que não contribuem para o significado do texto, como 'the', 'is', etc.
 
-4. *Lematização:*
-   - Conversão das palavras para sua forma base ou de dicionário (por exemplo, "running" para "run").
+Gerenciamento de Pipeline com ZenML: O projeto adota uma abordagem estruturada para o desenvolvimento e gerenciamento do pipeline de machine learning, usando a biblioteca ZenML. Isso sugere uma preocupação com a reprodutibilidade, eficiência e escalabilidade do processo de machine learning.
 
-5. *Reconstrução de Texto:*
-   - Reagrupamento das palavras processadas em uma string contínua para análise posterior.
 
-Estas técnicas ajudam a reduzir o ruído nos dados e melhorar a eficácia do modelo de machine learning.
+Logging e Análise Exploratória: Há uma ênfase significativa no registro de informações e erros (logging), bem como na realização de análises exploratórias dos dados, o que é crucial para entender as características do conjunto de dados e monitorar o desempenho do sistema.
 
-# Ferramentas utilizadas
-    
-## Tecnologias e Ferramentas
-- Python, TensorFlow, NLTK, scikit-learn, pandas, numpy, seaborn, matplotlib.
-- Apache Airflow para orquestração.
-- Docker para ambiente padronizado.
-- Weights & Biases para rastreamento de experimentos.
 
-- Dependências Python utilizadas no projeto:
-    - tensorflow
-    - os
-    - re
-    - requests
-    - wandb
-    - nltk
-    - pytest
-    - logging
-    - subprocess
-    - pandas
-    - json
-    - seaborn
-    - matplotlib.pyplot
-    - datetime
-    - airflow
-    - transformers
 
-## Descrição do projeto
+## Modelos utilizado
 
-Para a implementação do projeto <i>Classifying Disaster-Related Tweets as Real or Fake</i> disponibilizado pelo Dataquest deve ser refatorado para um arquivo Python, para isso os trechos de código foram reorganizados em funções para cada etapa, nosso código ficou dividido nas seguintes etapas:
-- fetch_data
-- data_exploration
-- preprocessing_data
-- data_check
-- data_segregation
-- data_train
-- wandb_finish
+Os modelos LinearSVC (Support Vector Classifier) e MultinomialNB (Multinomial Naive Bayes) são algoritmos de machine learning amplamente usados em tarefas de classificação, especialmente em análise de texto e processamento de linguagem natural (NLP). No contexto do seu projeto, esses modelos são usados para classificar textos, provavelmente em termos de idioma e sentimento. Vamos explorar como cada um deles pode ter sido utilizado:
 
-## Pipeline do Projeto
+LinearSVC
+Aplicação: O LinearSVC é uma implementação do Support Vector Machine (SVM) para casos onde o objetivo é a classificação. Este modelo é particularmente eficaz em espaços de alta dimensão, como é comum em NLP, onde os textos são transformados em vetores de alta dimensão (usando técnicas como TF-IDF).
 
-### 1. Configuração Inicial
-- *Logging:* Configuração de logging para monitoramento do processo.
-- *Weights & Biases (wandb):* Configuração inicial para rastreamento de experimentos.
+Funcionamento: O LinearSVC procura encontrar o melhor hiperplano que separa as classes no espaço de características. Em termos de NLP, isso significa separar diferentes categorias de texto (por exemplo, diferentes sentimentos ou idiomas).
 
-### 2. Coleta de Dados (fetch_data)
-- *Download de Dados:* Coleta automática de um dataset de tweets.
-- *Registro no wandb:* Os dados brutos são registrados como um artefato no wandb.
+Uso no Projeto: No seu projeto, o LinearSVC pode ser usado para classificar os textos em categorias predefinidas, como diferentes sentimentos (positivo, negativo, neutro). Sua eficácia em lidar com muitas características o torna adequado para conjuntos de dados textuais.
 
-### 3. Exploração de Dados (data_exploration)
-- *Análise Exploratória:* Contagem de valores alvo, normalização e geração de visualizações.
-- *Registros e Visualizações:* Registro das análises e imagens de gráficos no wandb.
+MultinomialNB
+Aplicação: O MultinomialNB é uma variante do algoritmo Naive Bayes que funciona bem com características discretas (como a contagem de palavras em textos). É um modelo popular em classificação de texto devido à sua simplicidade e eficácia.
 
-### 4. Pré-processamento de Dados (preprocessing_data)
-- *Limpeza e Preparação:* Remoção de colunas desnecessárias e aplicação de técnicas de NLP como tokenização, remoção de stopwords, e lematização.
-- *Registro no wandb:* Os dados limpos são registrados como um novo artefato.
+Funcionamento: Baseia-se no princípio de probabilidade condicional e na suposição de independência entre as características. Para NLP, isso significa que a presença ou ausência de uma palavra é usada para prever a classe do texto (ignorando a correlação entre palavras).
 
-### 5. Verificação de Dados (data_check)
-- *Testes Automatizados:* Utilização de pytest para validar a integridade dos dados.
+Uso no Projeto: No contexto do seu projeto, o MultinomialNB pode ser utilizado para identificar o idioma do texto ou classificar o sentimento. Ele é eficaz em casos onde a contagem de palavras e a frequência são indicativos da classe do texto.
 
-### 6. Segregação de Dados (data_segregation)
-- *Divisão em Conjuntos de Treino e Teste:* Separação dos dados em dois conjuntos para treinamento e teste do modelo.
-- *Registro no wandb:* Os conjuntos de dados divididos são registrados como artefatos.
 
-### 7. Treinamento do Modelo (data_train)
-- *Construção e Treinamento:* Definição do modelo usando TensorFlow e treinamento com os dados de treino.
-- *Visualizações de Treinamento:* Gráficos de perda e acurácia durante o treinamento são gerados e registrados no wandb.
 
-### 8. Finalização do Registro no wandb (wandb_finish)
-- *Conclusão:* Encerramento da sessão de rastreamento do experimento no wandb.
+## pipeline
 
-### 9. Orquestração com Apache Airflow
-- *DAG Configuration:* Configuração da Directed Acyclic Graph (DAG) para automação do processo.
-- *Tarefas Airflow:* Definição das tarefas Python para cada etapa do pipeline.
+A pipeline de machine learning no seu projeto foi projetada para realizar tarefas de processamento de linguagem natural (NLP) e classificação de texto. Com base na análise do código em projeto.py e nas dependências em requirements.txt, posso detalhar as etapas típicas dessa pipeline:
 
-# Execução do projeto
-### Requisitos
-- Python 3.8 ou superior.
-- Bibliotecas Python: pytest, wandb, pandas, numpy, tensorflow, nltk, entre outras listadas em requirements.txt.
-- Weights & Biases (wandb) para rastreamento de experimentos (requer conta e API key).
+1. Carregamento de Dados (fecth)
+Função: Carregar o conjunto de dados de texto (dataset.csv), que inclui textos, idiomas e rótulos de sentimentos.
+Implementação: Utilização de pandas para ler o arquivo CSV e carregar os dados em um DataFrame.
+2. Análise Exploratória de Dados (data_exploration)
+Função: Explorar os dados para entender suas características, como a distribuição de classes, a presença de valores nulos e estatísticas descritivas.
+Implementação: Uso de funções do pandas e visualizações com seaborn ou matplotlib para análises exploratórias.
+3. Pré-processamento de Dados
+Função: Limpar e preparar os dados para modelagem. Isso inclui a remoção de caracteres especiais, a normalização do texto e a manipulação de valores nulos.
+Implementação: Utilização de expressões regulares (re), manipulação de strings e possivelmente técnicas de NLP do nltk (como a remoção de stopwords).
+4. Vetorização de Texto
+Função: Converter textos em um formato numérico para que possam ser processados por algoritmos de machine learning.
+Implementação: Uso de TfidfVectorizer do sklearn para transformar os textos em vetores TF-IDF, que refletem a importância de palavras nos textos.
+5. Divisão dos Dados em Treino e Teste
+Função: Separar o conjunto de dados em partes de treino e teste para validar a eficácia do modelo.
+Implementação: Utilização da função train_test_split do sklearn.
+6. Construção e Treinamento de Modelos
+Função: Construir e treinar modelos de classificação, como LinearSVC e MultinomialNB.
+Implementação: Definição dos modelos e treinamento utilizando os dados de treino.
+7. Avaliação dos Modelos
+Função: Avaliar o desempenho dos modelos com métricas como acurácia, precisão e recall.
+Implementação: Uso de funções como classification_report e accuracy_score do sklearn.
+8. Interface com Gradio
+Função: Criar uma interface de usuário para testar os modelos com entradas de texto ao vivo.
+Implementação: Uso de gradio para construir uma interface web onde usuários podem inserir textos e receber previsões.
+9. Gerenciamento de Pipeline com ZenML
+Função: Gerenciar todo o processo de machine learning de forma eficiente e reprodutível.
+Implementação: Uso do ZenML para definir e executar a pipeline como um todo.
+10. Logging e Monitoramento
+Função: Registrar atividades, erros e informações importantes durante a execução do pipeline.
+Implementação: Uso do módulo logging do Python para registrar informações no arquivo mlops_verifying_tweets.log.
+Essa pipeline integra várias etapas críticas para o processamento e análise de texto, desde a carga inicial de dados até a aplicação prática dos modelos em uma interface interativa. A escolha das bibliotecas e ferramentas (como pandas, sklearn, nltk, gradio, e ZenML) reflete um foco na eficiência, escalabilidade e acessibilidade para usuários finais.
 
-### Instruções para Execução
 
-1. *Instalação de Dependências:*
-   - Instale todas as dependências Python utilizando pip install -r requirements.txt.
 
-2. *Configuração do Weights & Biases:*
-   - Configure a chave API do wandb, obtida após o registro no site oficial.
 
-3. *Execução dos Testes:*
-   - Execute os testes automatizados com pytest para garantir a integridade dos dados.
-
-4. *Treinamento e Avaliação do Modelo:*
-   - Execute o script principal (mlops_verifying_tweets.py) para iniciar o processo de treinamento e avaliação do modelo.
-
-5. *Visualização e Análise de Resultados:*
-   - Acesse o painel do wandb para visualizar e analisar os resultados do treinamento e dos testes.
 
 # Resultados obtidos
 ![](./imgs/airflow.jpeg)
 ![](./imgs/graph.jpeg)
-# Vídeo de apresentação
-Apresentação do projeto no [link](https://drive.google.com/file/d/1IjTJCU07UgZqCoGPEG4R0ythw2xyqCCX/view?usp=drive_link)
+
+
 
 # Grupo
 
@@ -163,8 +107,5 @@ Apresentação do projeto no [link](https://drive.google.com/file/d/1IjTJCU07UgZ
 - Luiz Henrique Araújo Dantas
 
 # Referências
-
-- Dataquest
-- Weights & Biases - wandb
 - Dr. Ivanovitch Medeiros Dantas da Silva <a href="https://github.com/ivanovitchm">![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)</a>
 
