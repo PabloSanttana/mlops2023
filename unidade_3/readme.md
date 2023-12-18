@@ -124,6 +124,7 @@ Essa pipeline integra várias etapas críticas para o processamento e análise d
 
 # GradIO
 
+
 ![](./images/test-en-negative.png)
 
 ![](./images/test-en-positive.png)
