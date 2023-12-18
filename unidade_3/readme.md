@@ -121,7 +121,11 @@ Essa pipeline integra várias etapas críticas para o processamento e análise d
 ![](./images/sentiment_acurracy.png)
 
 
+# GradIO
 
+| suporte | precision |
+|----------|----------|
+|  <img src="./images/sentiment_suport.png" width="500" height="500" />  |  <img src="./images/sentiment_precision.png" width="500" height="500" /> |  
 
 
 # Grupo
