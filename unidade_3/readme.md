@@ -135,9 +135,46 @@ Essa pipeline integra várias etapas críticas para o processamento e análise d
 
 
 
+## Configuração do Ambiente e Execução do Programa
+
+Siga os passos abaixo para configurar um ambiente virtual e executar o programa Python:
+
+### 1. Instalação do Python
+Certifique-se de que o Python está instalado em seu sistema. Se não estiver, faça o download e instale-o a partir do [site oficial do Python](https://www.python.org/downloads/).
+
+### 2. Criação do Ambiente Virtual
+Abra o terminal ou prompt de comando e navegue até o diretório do projeto. Então, execute o seguinte comando para criar um ambiente virtual:
+
+```bash
+python -m venv venv
+```
+
+### 3. Habilitar um ambiente virtual em Python
+
+```bash
+ source venv/bin/activate
+```
+
+### 4.  Instalar as dependências 
+
+```bash
+ pip install -r requirements.txt
+```
+
+### 5. Rodar projeto 
+
+```bash
+   python projeto.py
+```
+
+### 6. Visualizar o pipeline no znML
+
+```bash
+   zenml up --blocking
+```
+
 
 # Grupo
-
 - Guilherme Pablo Santana
 - Henrique Hideaki Koga
 - Luiz Henrique Araújo Dantas
